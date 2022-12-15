@@ -7,9 +7,8 @@ import NextLink from 'next/link'
 export default function Home() {
   return (
 <Flex  flexDir='column' alignItems='center'>
-    <img  src='/engine.png' width='350px' height='230px' />
 
-  <Card marginTop={10} background='white'>
+  <Card background='white'>
   <CardHeader>
     <Text fontSize='6xl'>Cadastro de evento</Text>
   </CardHeader>
@@ -21,12 +20,6 @@ export default function Home() {
           Nome do Evento
         </Heading>
         <Input  placeholder='NOME DO EVENTO'/>
-      </Box>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Descrição
-        </Heading>
-        <Textarea placeholder='Aqui você coloca a descrição'/>
       </Box>
       <Box>
         <Heading size='xs' textTransform='uppercase'>

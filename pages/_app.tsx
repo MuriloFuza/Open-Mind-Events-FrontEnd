@@ -1,8 +1,10 @@
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Flex } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import '../styles/globals.css'
-
+import {NavBar} from '../components/navbar'
+import {LogoPage} from '../components/logo_page'
 import { extendTheme } from "@chakra-ui/react"
+
 const theme = extendTheme({
   styles: {
     global: {
@@ -23,7 +25,11 @@ const theme = extendTheme({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <NavBar  />
+      <Flex flexDir='column' alignItems={'center'}> 
+        <LogoPage/>
+      </Flex>
+      <Component  {...pageProps} />
     </ChakraProvider>
   )
 }

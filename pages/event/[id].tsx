@@ -45,9 +45,8 @@ export default function Home() {
 
   return (
 <Flex  flexDir='column' alignItems='center'>
-    <img  src='/engine.png' width='350px' height='230px' />
 
-  <Card marginTop={10} background='white'>
+  <Card background='white'>
   <CardHeader>
     <Heading fontSize='6xl'>{event?.name}</Heading>
   </CardHeader>

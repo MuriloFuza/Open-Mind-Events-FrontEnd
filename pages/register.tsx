@@ -53,9 +53,8 @@ export default function Home() {
   }
 
   return (
-<Flex  flexDir='column' alignItems='center'>
-    <img  src='/engine.png' width='350px' height='230px' />
-
+<Flex pb={10} flexDir='column' alignItems='center'>
+   
     <Text marginTop={4} fontSize='3xl' textAlign='center'>Semana da computação</Text>
 
     <Text marginTop={4} color='gray.400' textAlign='center'>Faça o Cadastro e começe a usar!</Text>
@@ -97,7 +96,7 @@ export default function Home() {
   <Button onClick={cadastrar} marginTop={4} alignSelf='center' width='280px' textColor={'black'} colorScheme={'twitter'} variant='solid'
     >Cadastrar</Button>
 
-  <Link marginTop={4} color='gray.400' alignSelf='center' as={NextLink} href='/'>Cancelar</Link>
+  <Button marginTop={4} colorScheme={'red'} alignSelf='center' as={NextLink} href='/'>Cancelar</Button>
 
 
   <Modal isOpen={isOpen} onClose={onClose}>
