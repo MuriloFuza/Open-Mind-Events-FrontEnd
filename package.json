@@ -16,6 +16,7 @@
     "@types/node": "18.11.10",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "axios": "^1.2.1",
     "chakra-datetime-picker": "^1.1.7",
     "chakra-dayzed-datepicker": "^0.2.5",
     "date-fns": "^2.29.3",
@@ -28,5 +29,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0"
   }
 }

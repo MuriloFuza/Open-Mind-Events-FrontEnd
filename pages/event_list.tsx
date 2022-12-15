@@ -1,10 +1,24 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import { Box, Card, CardBody, CardHeader, Flex, Heading, Link, Stack, StackDivider, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, CardHeader, Flex, Heading, Link, Stack, StackDivider } from '@chakra-ui/react'
+import axios from 'axios'
 import NextLink from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+
+  const [eventList, setEventList] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:8001/event/list'
+    ).then((response) => {
+      console.log(response.data)
+      setEventList(response.data)
+    })
+  }, [])
+
   return (
+    
 <Flex  flexDir='column' alignItems='center'>
     <img  src='/engine.png' width='350px' height='230px' />
 
@@ -15,51 +29,16 @@ export default function Home() {
 
   <CardBody>
     <Stack divider={<StackDivider />} spacing='4'>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Nome do evento
-        </Heading>
-        <Text pt='2' fontSize='sm'>
-          Descrição do evento
-        </Text>
-        <Link color='blue.400' alignSelf='initial' as={NextLink} href='/event'>Ver evento</Link>
-      </Box>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Nome do evento 2
-        </Heading>
-        <Text pt='2' fontSize='sm'>
-          Descrição do evento 2
-        </Text>
-        <Link color='blue.400' alignSelf='initial' as={NextLink} href='/event'>Ver evento</Link>
-      </Box>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Nome do evento 3
-        </Heading>
-        <Text pt='2' fontSize='sm'>
-          Descrição do evento 3
-        </Text>
-        <Link color='blue.400' alignSelf='initial' as={NextLink} href='/event'>Ver evento</Link>
-      </Box>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Nome do evento 4
-        </Heading>
-        <Text pt='2' fontSize='sm'>
-          Descrição do evento 4 
-        </Text>
-        <Link color='blue.400' alignSelf='initial' as={NextLink} href='/event'>Ver evento</Link>
-      </Box>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Nome do evento 5
-        </Heading>
-        <Text pt='2' fontSize='sm'>
-          Descrição do evento 5
-        </Text>
-        <Link color='blue.400' alignSelf='initial' as={NextLink} href='/event'>Ver evento</Link>
-      </Box>
+      {
+        eventList.map(event => (
+          <Box key={event.id}>
+            <Heading size='xs' textTransform='uppercase'>
+              {event.name}
+            </Heading>
+            <Link color='blue.400' alignSelf='initial' as={NextLink} href={`/event/${event.id}`} >Ver evento</Link>
+        </Box>
+        ))
+      }
     </Stack>
   </CardBody>
 </Card>
