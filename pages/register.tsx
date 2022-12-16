@@ -15,11 +15,12 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  useDisclosure
+  useDisclosure,
+  useToast
 } from "@chakra-ui/react";
 import axios from "axios";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiOutlineIdcard, AiOutlineMail, AiOutlineUser } from "react-icons/ai";
 
 export default function Home() {
@@ -31,9 +32,7 @@ export default function Home() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  useEffect(() => {
-    console.log(cpf);
-  }, [cpf]);
+  const toast = useToast();
 
   const format = (val: string) => {
     return val
@@ -45,22 +44,37 @@ export default function Home() {
   };
 
   const cadastrar = () => {
-    axios
-      .post("http://localhost:8001/user/create", {
-        name,
-        cpf,
-        email,
-        university,
-      })
-      .then((response) => {
-        console.log(response);
-        console.table(response.data);
-
-        if (!response.data.error) {
-          onOpen();
-          setKey(response.data.key);
-        }
+    if (name !== "" && cpf !== "" && email !== "" && university !== "") {
+      axios
+        .post("http://localhost:8001/user/create", {
+          name,
+          cpf,
+          email,
+          university,
+        })
+        .then((response) => {
+          if (!response.data.error) {
+            onOpen();
+            setKey(response.data.key);
+          } else {
+            toast({
+              title: "Error!",
+              description: "Usuário já cadastrado",
+              status: "error",
+              duration: 2000,
+              isClosable: true,
+            });
+          }
+        });
+    } else {
+      toast({
+        title: "Error!",
+        description: "Preencha todos os campos",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
       });
+    }
   };
 
   return (
@@ -181,7 +195,7 @@ export default function Home() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="twitter" mr={3} onClick={onClose} as={NextLink} href="/event_list">
+            <Button colorScheme="twitter" mr={3} onClick={onClose} as={NextLink} href="/">
               Close
             </Button>
           </ModalFooter>

@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
+import "moment/locale/pt-br";
+import "react-datetime/css/react-datetime.css";
+
 import {
   Box,
   Button,
@@ -17,10 +20,10 @@ import {
   useToast
 } from "@chakra-ui/react";
 import axios from "axios";
-import { DatePickerInput } from "chakra-datetime-picker";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Datetime from "react-datetime";
 
 export default function Home() {
   const [value, setValue] = useState("");
@@ -29,8 +32,8 @@ export default function Home() {
   const [eventList, setEventList] = useState([]);
 
   const [name, setName] = useState("");
-  const [init_date, setInit] = useState("");
-  const [end_date, setEnd] = useState("");
+  const [init_date, setInit] = useState<Date>();
+  const [end_date, setEnd] = useState<Date>();
   const [banner_url, setBanner] = useState("");
   const [creator, setCreator] = useState("");
 
@@ -60,8 +63,8 @@ export default function Home() {
   useEffect(() => {
     console.log(event);
     setName(event.name);
-    setInit(event.init_date);
-    setEnd(event.end_date);
+    setInit(new Date(event.init_date));
+    setEnd(new Date(event.end_date));
     setBanner(event.banner_url);
     setEventId("");
   }, [event]);
@@ -138,59 +141,64 @@ export default function Home() {
                   <option value={event.id}>{event.name}</option>
                 ))}
               </Select>
+              {value !== "" ? (
+                <>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Nome do Evento
+                    </Heading>
+                    <Input
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
+                      placeholder="NOME DO EVENTO"
+                    />
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Banner
+                    </Heading>
+                    <Input
+                      onChange={(e) => setBanner(e.target.value)}
+                      value={banner_url}
+                      placeholder="Url do bannner"
+                    />
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Data Início:
+                    </Heading>
 
-              <Heading size="xs" textTransform="uppercase">
-                Nome do Evento
-              </Heading>
-              <Input
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-                placeholder="NOME DO EVENTO"
-              />
-            </Box>
-            <Box>
-              <Heading size="xs" textTransform="uppercase">
-                Banner
-              </Heading>
-              <Input
-                onChange={(e) => setBanner(e.target.value)}
-                value={banner_url}
-                placeholder="Url do bannner"
-              />
-            </Box>
-            <Box>
-              <Heading size="xs" textTransform="uppercase">
-                Data Início:
-              </Heading>
-              <DatePickerInput
-                onChange={(e) => setInit(e)}
-                value={init_date}
-                showTimeSelector
-                currentLangKey="en"
-                format="DD/MM/YYYY HH:mm"
-              />
-            </Box>
-            <Box>
-              <Heading size="xs" textTransform="uppercase">
-                Data Fim:
-              </Heading>
-              <DatePickerInput
-                onChange={(e) => setEnd(e)}
-                value={end_date}
-                showTimeSelector
-                currentLangKey="en"
-                format="DD/MM/YYYY HH:mm"
-              />
-            </Box>
-            <Box>
-              <Heading size="xs" textTransform="uppercase">
-                Chave
-              </Heading>
-              <Input
-                onChange={(e) => setCreator(e.target.value)}
-                value={creator}
-                placeholder="Insira sua chave de Administrador"
-              />
+                    <Datetime
+                      dateFormat="DD/MM/YYYY"
+                      locale="pt-br"
+                      value={init_date}
+                      onChange={(e) => setInit(e)}
+                    />
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Data Fim:
+                    </Heading>
+                    <Datetime
+                      dateFormat="DD/MM/YYYY"
+                      locale="pt-br"
+                      initialValue={end_date}
+                      value={end_date}
+                      onChange={(e) => setEnd(e)}
+                    />
+                  </Box>
+                  <Box>
+                    <Heading size="xs" textTransform="uppercase">
+                      Chave
+                    </Heading>
+                    <Input
+                      onChange={(e) => setCreator(e.target.value)}
+                      value={creator}
+                      placeholder="Insira sua chave de Administrador"
+                    />
+                  </Box>
+                </>
+              ) : null}
             </Box>
           </Stack>
         </CardBody>

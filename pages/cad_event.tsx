@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
+import "moment/locale/pt-br";
+import "react-datetime/css/react-datetime.css";
+
 import {
   Box,
   Button,
@@ -15,10 +18,10 @@ import {
   useToast
 } from "@chakra-ui/react";
 import axios from "axios";
-import { DatePickerInput } from "chakra-datetime-picker";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Datetime from "react-datetime";
 
 export default function Home() {
   const router = useRouter();
@@ -98,24 +101,24 @@ export default function Home() {
               <Heading size="xs" textTransform="uppercase">
                 Data Início:
               </Heading>
-              <DatePickerInput
-                onChange={(e) => setInit(e)}
+              <Datetime
+                dateFormat="DD/MM/YYYY"
+                locale="pt-br"
                 value={init_date}
-                showTimeSelector
-                currentLangKey="en"
-                format="DD/MM/YYYY HH:mm"
+                initialValue={new Date()}
+                onChange={(e) => setInit(e)}
               />
             </Box>
             <Box>
               <Heading size="xs" textTransform="uppercase">
                 Data Fim:
               </Heading>
-              <DatePickerInput
-                onChange={(e) => setEnd(e)}
+              <Datetime
+                dateFormat="DD/MM/YYYY"
+                locale="pt-br"
+                initialValue={new Date()}
                 value={end_date}
-                showTimeSelector
-                currentLangKey="en"
-                format="DD/MM/YYYY HH:mm"
+                onChange={(e) => setEnd(e)}
               />
             </Box>
             <Box>

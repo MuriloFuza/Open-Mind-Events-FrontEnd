@@ -252,6 +252,16 @@ const NAV_ITEMS: Array<NavItem> = [
     label: "Área do Professor",
     children: [
       {
+        label: "Lista de participantes",
+        subLabel: "Veja os participantes de um evento",
+        href: "/attendance_list",
+      },
+    ],
+  },
+  {
+    label: "Eventos",
+    children: [
+      {
         label: "Cadastrar um Evento",
         subLabel: "Cadastre um novo evento",
         href: "/cad_event",
@@ -265,6 +275,21 @@ const NAV_ITEMS: Array<NavItem> = [
         label: "Excluir um Evento",
         subLabel: "Cadastre um novo evento",
         href: "/del_event",
+      },
+    ],
+  },
+  {
+    label: "Atividades",
+    children: [
+      {
+        label: "Cadastrar Atividades",
+        subLabel: "Cadastre uma atividade em uma evento",
+        href: "/cad_activity",
+      },
+      {
+        label: "Excluir Atividades",
+        subLabel: "Exclua atividades de um evento",
+        href: "/del_activity",
       },
     ],
   },
